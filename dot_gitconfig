@@ -1,0 +1,101 @@
+[core]
+	excludesfile = /Users/nulloxide/.gitignore_global
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Dracula
+
+[user]
+	name = Mohsen Ramez
+	email = moe@monachilpartners.com
+[alias]
+	# Existing alias
+	cleanup = !git fetch -p && git branch -vv
+
+	# Modern workflow aliases
+	st = status -sb
+	co = checkout
+	br = branch
+	cm = commit -m
+	ca = commit --amend
+	cane = commit --amend --no-edit
+
+	# Smart logging
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	last = log -1 HEAD --stat
+	recent = branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+
+	# Undo aliases
+	unstage = reset HEAD --
+	undo = reset --soft HEAD^
+	uncommit = reset --soft HEAD^
+
+	# Stash shortcuts
+	stash-all = stash save --include-untracked
+	stash-list = stash list --pretty=format:'%C(yellow)%gd%Creset %s %Cgreen(%cr)%Creset'
+
+	# Diff shortcuts
+	df = diff
+	dc = diff --cached
+
+	# Push/pull shortcuts
+	ps = push
+	pl = pull
+	pf = push --force-with-lease
+
+	# Branch management
+	gone = !git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+
+[pull]
+	rebase = false
+
+[push]
+	default = simple
+	followTags = true
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+	pruneTagstrue
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+
+[merge]
+	ff = false
+	conflictStyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+[rerere]
+	enabled = true
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[init]
+	defaultBranch = main
+
+[help]
+	autocorrect = prompt
+
+[maintenance]
+	auto = true
+	strategy = incremental

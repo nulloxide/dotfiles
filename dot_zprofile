@@ -1,0 +1,14 @@
+# .zprofile - Login shell PATH and environment setup
+# Execution order: .zshenv → .zprofile → .zshrc
+
+# Initialize Homebrew environment (sets PATH, MANPATH, etc.)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Python paths (required by some dependencies)
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+
+# User bin directory
+export PATH="$HOME/bin:$PATH"
+
+# Local bin directory
+export PATH="$HOME/.local/bin:$PATH"
