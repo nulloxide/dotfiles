@@ -274,7 +274,7 @@ Used to encrypt SSH keys and ticker config in dotfiles.
 - Window management (Hyper Key + vim keys)
 - Extensions
 
-**ticker** - Terminal stock/crypto tracker
+**ticker** - Terminal stock/crypto tracker (dashboard style)
 ```bash
 ticker                     # Run with config
 ticker -w "AAPL,MSFT"      # Watch specific symbols
@@ -286,7 +286,22 @@ Shift+TAB                  # Previous group
 q                          # Quit
 ```
 
-Tracks positions, shows P&L, supports multiple watchlist groups. Config encrypted in dotfiles.
+Tracks positions, shows P&L, supports multiple watchlist groups. Config encrypted.
+
+**tickrs** - Terminal stock tracker (interactive charts)
+```bash
+tickrs                     # Run with config
+tickrs -s AAPL,MSFT        # Watch specific symbols
+tickrs -t 1W               # Time frame
+tickrs --show-volumes      # Volume graphs
+
+# While running
+a/d                        # Add/remove stock
+s                          # Change time frame
+Tab                        # Cycle panes
+```
+
+Interactive with line/candle/kagi charts, volume graphs, pre/post market data. Config encrypted.
 
 ## Fonts
 
@@ -304,7 +319,7 @@ Tracks positions, shows P&L, supports multiple watchlist groups. Config encrypte
 | **Languages** | fnm (Node) |
 | **Python** | ruff, uv, ty |
 | **Editors** | Zed, PyCharm |
-| **Productivity** | Raycast, ticker |
+| **Productivity** | Raycast, ticker, tickrs |
 | **Network** | httpie, wget |
 | **Security** | age, gnupg, openssh |
 
@@ -316,7 +331,8 @@ Tracks positions, shows P&L, supports multiple watchlist groups. Config encrypte
 ~/.config/zellij/config.kdl      # Zellij multiplexer
 ~/.config/kitty/kitty.conf       # kitty terminal
 ~/.config/bat/config             # Bat viewer
-~/.ticker.yaml                   # ticker (encrypted in repo)
+~/.ticker.yaml                                        # ticker (encrypted in repo)
+~/Library/Application Support/tickrs/config.yml      # tickrs (encrypted in repo)
 ~/.gitconfig                     # Git configuration
 ~/.zshrc                         # Zsh shell
 ~/.ssh/config                    # SSH configuration

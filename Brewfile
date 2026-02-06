@@ -7,6 +7,7 @@ tap "lizardbyte/homebrew"
 tap "microsoft/mssql-release"
 tap "popcorn-official/popcorn-desktop", "https://github.com/popcorn-official/popcorn-desktop.git"
 tap "steipete/tap"
+tap "tarkah/tickrs"
 # Simple, modern, secure file encryption
 brew "age"
 # Improved shell history for zsh, bash, fish and nushell
@@ -192,6 +193,8 @@ brew "steipete/tap/gifgrep"
 brew "steipete/tap/ordercli"
 # Command-line ElevenLabs TTS with mac-style flags
 brew "steipete/tap/sag"
+# Realtime ticker data in your terminal 📈
+brew "tarkah/tickrs/tickrs"
 # Chromium based browser
 cask "arc"
 # Online gaming platform
@@ -315,7 +318,6 @@ vscode "donjayamanne.githistory"
 vscode "donjayamanne.python-extension-pack"
 vscode "eamodio.gitlens"
 vscode "financialforce.lana"
-vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "heyprincesingh.pycache-cleaner"
 vscode "loginspector.loginspector"

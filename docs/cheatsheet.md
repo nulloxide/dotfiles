@@ -88,7 +88,9 @@ cd ~/.local/share/chezmoi
 brew bundle dump --describe --force
 ```
 
-## Ticker (Market Tracker)
+## Market Trackers
+
+### ticker (Dashboard Style)
 
 ```bash
 ticker                     # Run with config
@@ -100,6 +102,23 @@ ticker print > holdings.csv # Export to CSV
 TAB                        # Next group
 Shift+TAB                  # Previous group
 q                          # Quit
+```
+
+### tickrs (Charts & Graphs)
+
+```bash
+tickrs                     # Run with config
+tickrs -s AAPL,MSFT        # Watch specific symbols
+tickrs -t 1W               # Set time frame (1D/1W/1M/3M/6M/1Y/5Y)
+tickrs --show-volumes      # Show volume graphs
+tickrs --summary           # Summary view
+
+# While running
+a                          # Add stock
+d                          # Remove stock
+s                          # Change time frame
+Tab                        # Cycle panes
+?                          # Help
 ```
 
 ## Raycast (Window Management)

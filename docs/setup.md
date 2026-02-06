@@ -88,7 +88,8 @@ SSH keys and ticker config encrypted with age. Encryption key: `~/.config/chezmo
 **Encrypted files:**
 - `~/.ssh/id_ed25519` (SSH key)
 - `~/.ssh/devdroid_ed25519` (SSH key)
-- `~/.ticker.yaml` (market positions)
+- `~/.ticker.yaml` (market positions - ticker)
+- `~/Library/Application Support/tickrs/config.yml` (market positions - tickrs)
 
 ```bash
 # View key (save somewhere safe)
