@@ -1,0 +1,59 @@
+# tickrs configuration
+# Location: ~/Library/Application Support/tickrs/config.yml
+
+symbols:
+  - AAPL
+  - AMZN
+  - CLOI
+  - GOOG
+  - HISA.TO
+  - KILO-B.TO
+  - MSFT
+  - NVDA
+  - SLV
+  - TEM
+  - VST
+
+portfolio:
+  AAPL:
+    quantity: 2
+    average_price: 215.11
+  AMZN:
+    quantity: 4
+    average_price: 212.19
+  CLOI:
+    quantity: 1
+    average_price: 53.75
+  GOOG:
+    quantity: 2
+    average_price: 172.10
+  HISA.TO:
+    quantity: 10
+    average_price: 51.40
+  KILO-B.TO:
+    quantity: 6
+    average_price: 117.33
+  MSFT:
+    quantity: 6
+    average_price: 87.42
+  NVDA:
+    quantity: 3
+    average_price: 141.26
+  SLV:
+    quantity: 10
+    average_price: 72.93
+  TEM:
+    quantity: 1
+    average_price: 46.67
+  VST:
+    quantity: 2
+    average_price: 146.93
+
+# Display settings
+time_frame: 1D
+chart_type: line
+update_interval: 5
+show_volumes: true
+show_x_labels: true
+enable_pre_post: false
+summary: false
