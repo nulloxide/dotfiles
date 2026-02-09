@@ -1,0 +1,21 @@
+# .zprofile - Login shell PATH and environment setup
+# Execution order: .zshenv → .zprofile → .zshrc
+
+# Initialize Homebrew environment (sets PATH, MANPATH, etc.)
+{{- if eq .chezmoi.os "darwin" }}
+{{-   if eq .chezmoi.arch "arm64" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{-   else }}
+eval "$(/usr/local/bin/brew shellenv)"
+{{-   end }}
+{{- else if eq .chezmoi.os "linux" }}
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+{{- end }}
+
+# User bin directory
+export PATH="$HOME/bin:$PATH"
+
+# Local bin directory
+export PATH="$HOME/.local/bin:$PATH"

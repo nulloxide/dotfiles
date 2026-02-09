@@ -1,0 +1,39 @@
+#!/bin/bash
+# Install packages from Brewfile
+# This runs whenever the Brewfile changes
+
+set -e
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Installing Homebrew packages from Brewfile..."
+
+# Change to the source directory where Brewfile is located
+cd "{{ .chezmoi.sourceDir }}"
+
+if [ -f "Brewfile" ]; then
+    echo "Found Brewfile, installing packages..."
+
+    # Check MAS sign-in status
+    if ! command -v mas > /dev/null 2>&1 || ! mas account > /dev/null 2>&1; then
+        echo "Note: Not signed into Mac App Store, MAS apps will be skipped"
+        # Filter out mas lines and install the rest
+        grep -v '^mas ' Brewfile > /tmp/Brewfile.nomas
+        brew bundle install --file=/tmp/Brewfile.nomas || true
+        rm -f /tmp/Brewfile.nomas
+    else
+        brew bundle install || true
+    fi
+    echo "✓ Package installation complete"
+else
+    echo "⚠ Warning: Brewfile not found"
+    exit 1
+fi
+
+# Cleanup old packages
+echo "Cleaning up old Homebrew packages..."
+brew cleanup
+echo "✓ Cleanup complete"
+
+{{ else -}}
+echo "⚠ Skipping Homebrew installation (not on macOS)"
+{{ end -}}

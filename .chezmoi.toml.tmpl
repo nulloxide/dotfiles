@@ -1,0 +1,38 @@
+# chezmoi configuration
+
+{{ $isOwner := false -}}
+{{- if stat (joinPath .chezmoi.homeDir ".config/chezmoi/key.txt") -}}
+{{-   $isOwner = true -}}
+{{- end -}}
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $name := promptStringOnce . "name" "Full name" -}}
+
+{{ if $isOwner -}}
+encryption = "age"
+
+{{ end -}}
+[data]
+    email = {{ $email | quote }}
+    name = {{ $name | quote }}
+    isOwner = {{ $isOwner }}
+
+{{ if $isOwner -}}
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipient = "age167uqry040ug0hzvtyyutjlkv46ufcw6v5ymm3c2jhj46353nm4qqsv5y6j"
+
+{{ end -}}
+[add]
+    secrets = "error"
+
+[edit]
+    apply = true
+
+[diff]
+    pager = "delta"
+
+{{ if $isOwner -}}
+[git]
+    autoCommit = true
+    autoPush = true
+{{- end }}

@@ -1,0 +1,13 @@
+key.txt.age
+install.sh
+.oh-my-zsh/cache
+Brewfile
+README.md
+LICENSE
+docs/**
+{{ if not .isOwner }}
+.ssh/devdroid_ed25519
+.ssh/id_ed25519
+.ticker.yaml
+Library/Application Support/tickrs/config.yml
+{{ end }}

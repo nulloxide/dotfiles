@@ -1,0 +1,26 @@
+# bat configuration file
+# See: https://github.com/sharkdp/bat#configuration-file
+
+# Use Dracula theme (matches your Starship delta theme)
+--theme="Dracula"
+
+# Show line numbers, Git modifications and file header (but no grid)
+--style="numbers,changes,header"
+
+# Use italic text on the terminal
+--italic-text=always
+
+# Add mouse scrolling support in less (does not work with all terminals)
+--paging=auto
+
+# Use C++ syntax for .h header files
+--map-syntax "*.h:C++"
+
+# Use JavaScript syntax for .jsx files
+--map-syntax "*.jsx:JavaScript (Babel)"
+
+# Use TypeScript syntax for .tsx files
+--map-syntax "*.tsx:TypeScript"
+
+# Wrap lines
+--wrap=auto

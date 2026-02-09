@@ -1,0 +1,55 @@
+" Basic vim config (I use PyCharm anyway)
+
+" Basics
+set nocompatible
+syntax on
+set number
+set ruler
+set encoding=utf-8
+
+" Indentation
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Search
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" Disable swap files (they're annoying)
+set noswapfile
+set nobackup
+
+" Better backspace
+set backspace=indent,eol,start
+
+" Show matching brackets
+set showmatch
+
+" Keep cursor centered
+set scrolloff=8
+
+" Mouse support (sometimes useful)
+set mouse=a
+
+" Clipboard
+set clipboard=unnamed
+
+" Status line
+set laststatus=2
+set statusline=%F%m%r%h%w\ [%l,%v][%p%%]
+
+" Disable annoying sounds
+set noerrorbells
+set visualbell
+
+" Faster updates
+set updatetime=300
+
+" Colors
+set background=dark
+colorscheme default

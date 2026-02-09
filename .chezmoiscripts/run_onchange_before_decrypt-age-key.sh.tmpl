@@ -1,0 +1,17 @@
+#!/bin/sh
+# Decrypt age private key if not already present
+# Only runs on owner machines (key.txt.age passphrase required)
+
+{{ if not .isOwner -}}
+exit 0
+{{- end }}
+
+if [ ! -f "${HOME}/.config/chezmoi/key.txt" ]; then
+    mkdir -p "${HOME}/.config/chezmoi"
+    chezmoi age decrypt --output "${HOME}/.config/chezmoi/key.txt" \
+      --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
+    chmod 600 "${HOME}/.config/chezmoi/key.txt"
+    echo "✓ Age key decrypted"
+else
+    echo "✓ Age key already exists"
+fi
