@@ -29,8 +29,8 @@ curl -fsLS https://raw.githubusercontent.com/nulloxide/dotfiles/main/install.sh 
 iex (iwr 'https://raw.githubusercontent.com/nulloxide/dotfiles/main/install.ps1').Content
 ```
 
-- **Owner**: enter age passphrase when prompted to unlock SSH keys and secrets
-- **Public user**: press Enter or Ctrl+C at the passphrase prompt to skip secrets
+- **Owner**: enter `y` when prompted, then enter age passphrase to unlock secrets
+- **Public user**: press Enter (default `N`) to skip secrets
 
 | Platform | Package Manager | What's Installed |
 |----------|-----------------|------------------|
