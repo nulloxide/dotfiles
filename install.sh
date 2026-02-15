@@ -49,17 +49,20 @@ chezmoi init "${REPO}"
 
 if [ ! -f "${KEY_PATH}" ] && [ -f "${ENCRYPTED_KEY}" ] && command -v age > /dev/null 2>&1; then
     echo ""
-    echo "Enter age key passphrase to unlock secrets."
-    echo "Press Ctrl+C to skip (public user mode)."
-    echo ""
-    mkdir -p "$(dirname "${KEY_PATH}")"
-    # Run in a subshell so Ctrl+C only kills age, not the entire script
-    (age --decrypt --output "${KEY_PATH}" "${ENCRYPTED_KEY}" 2>/dev/null) || true
-    if [ -f "${KEY_PATH}" ] && [ -s "${KEY_PATH}" ]; then
-        chmod 600 "${KEY_PATH}"
-        echo "Age key decrypted"
+    printf "Do you have the age key passphrase? (y/N): "
+    REPLY=""
+    read -r REPLY < /dev/tty 2>/dev/null || true
+    if [ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]; then
+        mkdir -p "$(dirname "${KEY_PATH}")"
+        age --decrypt --output "${KEY_PATH}" "${ENCRYPTED_KEY}" || true
+        if [ -f "${KEY_PATH}" ] && [ -s "${KEY_PATH}" ]; then
+            chmod 600 "${KEY_PATH}"
+            echo "Age key decrypted"
+        else
+            rm -f "${KEY_PATH}"
+            echo "Decryption failed, continuing without secrets (public user mode)"
+        fi
     else
-        rm -f "${KEY_PATH}"
         echo "Continuing without secrets (public user mode)"
     fi
 fi
