@@ -1,4 +1,4 @@
-{{- if eq .chezmoi.os "darwin" -}}
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
 #!/bin/bash
 # Install packages from Brewfile
 # This runs whenever the Brewfile changes
@@ -19,7 +19,8 @@ SRCDIR="{{ .chezmoi.sourceDir }}"
 if [ -f "${SRCDIR}/Brewfile" ]; then
     echo "Found Brewfile, installing core packages..."
 
-    # Check MAS sign-in status
+{{- if eq .chezmoi.os "darwin" }}
+    # macOS: Check MAS sign-in status
     if ! command -v mas > /dev/null 2>&1 || ! mas account > /dev/null 2>&1; then
         echo "Note: Not signed into Mac App Store, MAS apps will be skipped"
         grep -v '^mas ' "${SRCDIR}/Brewfile" > /tmp/Brewfile.nomas
@@ -28,6 +29,12 @@ if [ -f "${SRCDIR}/Brewfile" ]; then
     else
         brew bundle install --no-upgrade --file="${SRCDIR}/Brewfile" || echo "Warning: Some core packages failed to install"
     fi
+{{- else }}
+    # Linux: Filter out macOS-only packages (mas, cask)
+    grep -v -E '^(mas |cask )' "${SRCDIR}/Brewfile" > /tmp/Brewfile.linux
+    brew bundle install --no-upgrade --file=/tmp/Brewfile.linux || echo "Warning: Some core packages failed to install"
+    rm -f /tmp/Brewfile.linux
+{{- end }}
     echo "Core package installation complete"
 else
     echo "Warning: Brewfile not found at ${SRCDIR}/Brewfile"
@@ -37,6 +44,7 @@ fi
 # Install personal/optional packages (owner only)
 if [ -f "${SRCDIR}/Brewfile.personal" ]; then
     echo "Installing personal packages (owner mode)..."
+{{- if eq .chezmoi.os "darwin" }}
     if ! command -v mas > /dev/null 2>&1 || ! mas account > /dev/null 2>&1; then
         grep -v '^mas ' "${SRCDIR}/Brewfile.personal" > /tmp/Brewfile.personal.nomas
         brew bundle install --no-upgrade --file=/tmp/Brewfile.personal.nomas || echo "Warning: Some personal packages failed to install"
@@ -44,6 +52,12 @@ if [ -f "${SRCDIR}/Brewfile.personal" ]; then
     else
         brew bundle install --no-upgrade --file="${SRCDIR}/Brewfile.personal" || echo "Warning: Some personal packages failed to install"
     fi
+{{- else }}
+    # Linux: Filter out macOS-only packages (mas, cask)
+    grep -v -E '^(mas |cask )' "${SRCDIR}/Brewfile.personal" > /tmp/Brewfile.personal.linux
+    brew bundle install --no-upgrade --file=/tmp/Brewfile.personal.linux || echo "Warning: Some personal packages failed to install"
+    rm -f /tmp/Brewfile.personal.linux
+{{- end }}
     echo "Personal package installation complete"
 fi
 {{ end -}}
@@ -53,7 +67,4 @@ echo "Cleaning up old Homebrew packages..."
 brew cleanup || echo "Warning: brew cleanup had issues"
 echo "Cleanup complete"
 
-{{ else -}}
-#!/bin/bash
-echo "Skipping Homebrew installation (not on macOS)"
 {{ end -}}

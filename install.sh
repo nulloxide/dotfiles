@@ -19,14 +19,20 @@ if ! command -v chezmoi > /dev/null 2>&1; then
 fi
 export PATH="${BIN_DIR}:${PATH}"
 
-# Install Homebrew if not present (macOS)
-if [ "$(uname)" = "Darwin" ] && ! command -v brew > /dev/null 2>&1; then
-    echo "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    if [ "$(uname -m)" = "arm64" ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    else
-        eval "$(/usr/local/bin/brew shellenv)"
+# Install Homebrew if not present
+if ! command -v brew > /dev/null 2>&1; then
+    if [ "$(uname)" = "Darwin" ]; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        if [ "$(uname -m)" = "arm64" ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        else
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
+    elif [ "$(uname)" = "Linux" ]; then
+        echo "Installing Homebrew for Linux..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 fi
 
