@@ -1,5 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
+{{- if lookPath "delta" }}
 	pager = delta
 
 [interactive]
@@ -10,6 +11,7 @@
 	side-by-side = true
 	line-numbers = true
 	syntax-theme = Dracula
+{{- end }}
 
 [user]
 	name = {{ .name }}
@@ -51,11 +53,13 @@
 
 	# Branch management
 	gone = !git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
+{{- if lookPath "git-credential-manager" }}
 [credential]
-	helper = 
+	helper =
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+{{- end }}
 
 [commit]
 	verbose = true

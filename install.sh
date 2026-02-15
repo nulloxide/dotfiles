@@ -39,14 +39,14 @@ if ! command -v age > /dev/null 2>&1; then
     fi
 fi
 
-# Clone repo (init without apply to get source files)
+# Attempt age key decryption before chezmoi init
+# This way chezmoi can detect owner status via key.txt existence
+ENCRYPTED_KEY="${SOURCE_DIR}/key.txt.age"
+
+# Clone repo first to get the encrypted key file
 echo "Cloning dotfiles..."
 chezmoi init "${REPO}"
 
-# Attempt age key decryption
-# Owner: enter passphrase to unlock secrets
-# Public: press Ctrl+C or enter wrong passphrase to skip
-ENCRYPTED_KEY="${SOURCE_DIR}/key.txt.age"
 if [ ! -f "${KEY_PATH}" ] && [ -f "${ENCRYPTED_KEY}" ] && command -v age > /dev/null 2>&1; then
     echo ""
     echo "Enter age key passphrase to unlock secrets."

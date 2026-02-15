@@ -1,8 +1,4 @@
-tap "achannarasappa/tap"
-tap "anomalyco/tap"
-tap "deskflow/tap"
 tap "microsoft/mssql-release"
-tap "tarkah/tickrs"
 tap "teamookla/speedtest"
 # Simple, modern, secure file encryption
 brew "age"
@@ -16,8 +12,6 @@ brew "bat"
 brew "btop"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
-# Hacker News in your terminal
-brew "circumflex"
 # Defines a standard way of committing rules and communicating it
 brew "commitizen"
 # Load/unload environment variables based on $PWD
@@ -72,8 +66,6 @@ brew "jq"
 brew "krb5"
 # Simple terminal UI for git commands
 brew "lazygit"
-# Keep your Mac's application settings in sync
-brew "mackup"
 # Mac App Store command-line interface
 brew "mas"
 # Terminal-based visual file manager
@@ -134,38 +126,20 @@ brew "sd"
 brew "doggo"
 # Painless compression and decompression
 brew "ouch"
-# Terminal stock ticker with live updates and position tracking
-brew "achannarasappa/tap/ticker"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode"
 # ODBC Driver for Microsoft(R) SQL Server(R)
 brew "microsoft/mssql-release/msodbcsql18"
 # Sqlcmd and Bcp for Microsoft(R) SQL Server(R)
 brew "microsoft/mssql-release/mssql-tools18"
-# Realtime ticker data in your terminal 📈
-brew "tarkah/tickrs/tickrs"
 # Official Ookla Speedtest CLI
 brew "teamookla/speedtest/speedtest"
 # Chromium based browser
 cask "arc"
-# Online gaming platform
-cask "battle-net"
-# Display management tool
-cask "betterdisplay"
-# Virtual Audio Driver
-cask "blackhole-16ch"
 # Anthropic's official Claude AI desktop app
 cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Mouse and keyboard sharing utility
-cask "deskflow/tap/deskflow"
 # Online diagram software
 cask "drawio"
-# Assign keys, and then decorate and label them
-cask "elgato-stream-deck"
-# VPN client for secure and private internet access
-cask "expressvpn"
 # Web browser
 cask "firefox"
 cask "font-jetbrains-mono-nerd-font"
@@ -174,60 +148,22 @@ cask "font-meslo-lg-nerd-font"
 cask "git-credential-manager"
 # Web browser
 cask "google-chrome"
-# Game launcher
-cask "heroic"
 # File archiver
 cask "keka"
 # GPU-based terminal emulator
 cask "kitty"
-# Software for Logitech devices
-cask "logi-options+"
 # Explorer for Azure Storage
 cask "microsoft-azure-storage-explorer"
-# Tool to control external monitor brightness & volume
-cask "monitorcontrol"
-# Open-source software for live streaming and screen recording
-cask "obs"
-# Get up and running with large language models locally
-cask "ollama-app"
 # Collaboration platform for API development
 cask "postman"
 # IDE for professional Python development
 cask "pycharm"
 # Control your tools with a few keystrokes
 cask "raycast"
-# Control your Sonos system
-cask "sonos"
-# Music streaming service
-cask "spotify"
-# Video game digital distribution service
-cask "steam"
-# Mesh VPN based on WireGuard
-cask "tailscale-app"
-# Messaging app with a focus on speed and security
-cask "telegram"
-# Virtual machines UI using QEMU
-cask "utm"
 # Open-source code editor
 cask "visual-studio-code"
-# Multimedia player
-cask "vlc"
-# Native desktop client for WhatsApp
-cask "whatsapp"
-# Network protocol analyzer
-cask "wireshark-app"
 # Multiplayer code editor
 cask "zed"
-# Video communication and virtual meeting platform
-cask "zoom"
-mas "Apple Configurator", id: 1037126344
-mas "Bitwarden", id: 1352778147
-mas "Brother P-touch Editor", id: 1453365242
-mas "DaVinci Resolve", id: 571213070
-mas "Ghostery Privacy Ad Blocker", id: 6504861501
-mas "Goodnotes", id: 1444383602
-mas "Keepa - Price Tracker", id: 1533805339
-mas "Raycast Companion", id: 6738274497
 vscode "anthropic.claude-code"
 vscode "atlassian.atlascode"
 vscode "charliermarsh.ruff"

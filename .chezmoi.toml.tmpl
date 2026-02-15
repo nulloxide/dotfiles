@@ -6,6 +6,10 @@
 {{- end -}}
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $name := promptStringOnce . "name" "Full name" -}}
+{{- $configureMacos := false -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $configureMacos = promptBoolOnce . "configureMacos" "Apply macOS system preferences (Finder, Dock, keyboard, etc.)" -}}
+{{- end -}}
 
 {{ if $isOwner -}}
 encryption = "age"
@@ -15,6 +19,7 @@ encryption = "age"
     email = {{ $email | quote }}
     name = {{ $name | quote }}
     isOwner = {{ $isOwner }}
+    configureMacos = {{ $configureMacos }}
 
 {{ if $isOwner -}}
 [age]
@@ -28,9 +33,11 @@ encryption = "age"
 [edit]
     apply = true
 
+{{ if lookPath "delta" -}}
 [diff]
     pager = "delta"
 
+{{ end -}}
 {{ if $isOwner -}}
 [git]
     autoCommit = true

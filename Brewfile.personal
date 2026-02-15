@@ -1,0 +1,62 @@
+tap "achannarasappa/tap"
+tap "anomalyco/tap"
+tap "deskflow/tap"
+tap "tarkah/tickrs"
+# Hacker News in your terminal
+brew "circumflex"
+# Keep your Mac's application settings in sync
+brew "mackup"
+# Terminal stock ticker with live updates and position tracking
+brew "achannarasappa/tap/ticker"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode"
+# Realtime ticker data in your terminal
+brew "tarkah/tickrs/tickrs"
+# Online gaming platform
+cask "battle-net"
+# Display management tool
+cask "betterdisplay"
+# Virtual Audio Driver
+cask "blackhole-16ch"
+# Mouse and keyboard sharing utility
+cask "deskflow/tap/deskflow"
+# Assign keys, and then decorate and label them
+cask "elgato-stream-deck"
+# VPN client for secure and private internet access
+cask "expressvpn"
+# Game launcher
+cask "heroic"
+# Software for Logitech devices
+cask "logi-options+"
+# Tool to control external monitor brightness & volume
+cask "monitorcontrol"
+# Open-source software for live streaming and screen recording
+cask "obs"
+# Get up and running with large language models locally
+cask "ollama-app"
+# Control your Sonos system
+cask "sonos"
+# Music streaming service
+cask "spotify"
+# Video game digital distribution service
+cask "steam"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
+# Messaging app with a focus on speed and security
+cask "telegram"
+# Virtual machines UI using QEMU
+cask "utm"
+# Multimedia player
+cask "vlc"
+# Native desktop client for WhatsApp
+cask "whatsapp"
+# Video communication and virtual meeting platform
+cask "zoom"
+mas "Apple Configurator", id: 1037126344
+mas "Bitwarden", id: 1352778147
+mas "Brother P-touch Editor", id: 1453365242
+mas "DaVinci Resolve", id: 571213070
+mas "Ghostery Privacy Ad Blocker", id: 6504861501
+mas "Goodnotes", id: 1444383602
+mas "Keepa - Price Tracker", id: 1533805339
+mas "Raycast Companion", id: 6738274497

@@ -2,12 +2,17 @@ key.txt.age
 install.sh
 .oh-my-zsh/cache
 Brewfile
+Brewfile.personal
 README.md
 LICENSE
 docs/**
 {{ if not .isOwner }}
 .ssh/devdroid_ed25519
+.ssh/devdroid_ed25519.age
 .ssh/id_ed25519
+.ssh/id_ed25519.age
 .ticker.yaml
+.ticker.yaml.age
 Library/Application Support/tickrs/config.yml
+Library/Application Support/tickrs/config.yml.age
 {{ end }}

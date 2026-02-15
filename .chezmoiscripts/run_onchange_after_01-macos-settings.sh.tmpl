@@ -1,0 +1,100 @@
+{{- if and (eq .chezmoi.os "darwin") .configureMacos -}}
+#!/bin/bash
+# Configure macOS system preferences
+# This runs after package installation when settings change
+
+echo "Configuring macOS settings..."
+
+# --- Finder ---
+
+# Show hidden files in Finder
+defaults write com.apple.finder AppleShowAllFiles -bool true 2>/dev/null || true
+
+# Show file extensions in Finder
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true 2>/dev/null || true
+
+# Show path bar in Finder
+defaults write com.apple.finder ShowPathbar -bool true 2>/dev/null || true
+
+# Show status bar in Finder
+defaults write com.apple.finder ShowStatusBar -bool true 2>/dev/null || true
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true 2>/dev/null || true
+
+# Avoid creating .DS_Store files on USB volumes
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true 2>/dev/null || true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library 2>/dev/null || true
+
+# --- Keyboard/Input ---
+
+# Disable press-and-hold for keys (enable key repeat)
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false 2>/dev/null || true
+
+# Set faster key repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 2 2>/dev/null || true
+defaults write NSGlobalDomain InitialKeyRepeat -int 15 2>/dev/null || true
+
+# Disable automatic capitalization
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false 2>/dev/null || true
+
+# Disable smart dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false 2>/dev/null || true
+
+# Disable automatic period substitution
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false 2>/dev/null || true
+
+# Disable smart quotes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false 2>/dev/null || true
+
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false 2>/dev/null || true
+
+# --- Save Dialog ---
+
+# Expand save panel by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true 2>/dev/null || true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true 2>/dev/null || true
+
+# --- Dock ---
+
+# Auto-hide the Dock
+defaults write com.apple.dock autohide -bool true 2>/dev/null || true
+
+# Use "scale" minimize effect (faster than "genie")
+defaults write com.apple.dock mineffect -string "scale" 2>/dev/null || true
+
+# Don't automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false 2>/dev/null || true
+
+# --- Terminal.app ---
+
+# Use the "Pro" profile (dark background, good colors) instead of default white "Basic"
+defaults write com.apple.Terminal "Default Window Settings" -string "Pro" 2>/dev/null || true
+defaults write com.apple.Terminal "Startup Window Settings" -string "Pro" 2>/dev/null || true
+
+# Add background blur to Pro profile (only if Terminal plist exists)
+if [ -f "${HOME}/Library/Preferences/com.apple.Terminal.plist" ]; then
+    /usr/libexec/PlistBuddy -c "Set 'Window Settings':Pro:BackgroundBlur 0.4" ~/Library/Preferences/com.apple.Terminal.plist 2>/dev/null || \
+    /usr/libexec/PlistBuddy -c "Add 'Window Settings':Pro:BackgroundBlur real 0.4" ~/Library/Preferences/com.apple.Terminal.plist 2>/dev/null || true
+fi
+
+# --- Safari ---
+
+# Enable the Develop menu and Web Inspector
+defaults write com.apple.Safari IncludeDevelopMenu -bool true 2>/dev/null || true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabled -bool true 2>/dev/null || true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true 2>/dev/null || true
+
+# --- Apply changes ---
+
+echo "Restarting Finder and Dock to apply changes..."
+for app in "Finder" "Dock"; do
+    killall "${app}" &> /dev/null || true
+done
+
+echo "macOS settings configured"
+echo "Note: Some changes require a logout/restart to take effect"
+{{ end -}}

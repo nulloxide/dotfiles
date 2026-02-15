@@ -1,9 +1,7 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 # Install Homebrew if not already installed
-# This runs once before other scripts
-
-set -e
+# This runs before other scripts
 
 echo "Checking for Homebrew..."
 
@@ -25,6 +23,10 @@ fi
 
 # Update Homebrew
 echo "Updating Homebrew..."
-brew update
+brew update || echo "Warning: brew update failed, continuing..."
 echo "Homebrew updated"
+
+# Ensure SSH sockets directory exists (needed for ControlPath in ssh config)
+mkdir -p "${HOME}/.ssh/sockets"
+chmod 700 "${HOME}/.ssh/sockets"
 {{ end -}}

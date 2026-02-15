@@ -1,0 +1,59 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+# Install packages from Brewfile
+# This runs whenever the Brewfile changes
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
+{{ if .isOwner -}}
+# Brewfile.personal hash: {{ include "Brewfile.personal" | sha256sum }}
+{{ end -}}
+
+echo "Installing Homebrew packages from Brewfile..."
+
+if ! command -v brew &> /dev/null; then
+    echo "Warning: Homebrew is not installed. Skipping package installation."
+    exit 0
+fi
+
+SRCDIR="{{ .chezmoi.sourceDir }}"
+
+if [ -f "${SRCDIR}/Brewfile" ]; then
+    echo "Found Brewfile, installing core packages..."
+
+    # Check MAS sign-in status
+    if ! command -v mas > /dev/null 2>&1 || ! mas account > /dev/null 2>&1; then
+        echo "Note: Not signed into Mac App Store, MAS apps will be skipped"
+        grep -v '^mas ' "${SRCDIR}/Brewfile" > /tmp/Brewfile.nomas
+        brew bundle install --no-upgrade --file=/tmp/Brewfile.nomas || echo "Warning: Some core packages failed to install"
+        rm -f /tmp/Brewfile.nomas
+    else
+        brew bundle install --no-upgrade --file="${SRCDIR}/Brewfile" || echo "Warning: Some core packages failed to install"
+    fi
+    echo "Core package installation complete"
+else
+    echo "Warning: Brewfile not found at ${SRCDIR}/Brewfile"
+fi
+
+{{ if .isOwner -}}
+# Install personal/optional packages (owner only)
+if [ -f "${SRCDIR}/Brewfile.personal" ]; then
+    echo "Installing personal packages (owner mode)..."
+    if ! command -v mas > /dev/null 2>&1 || ! mas account > /dev/null 2>&1; then
+        grep -v '^mas ' "${SRCDIR}/Brewfile.personal" > /tmp/Brewfile.personal.nomas
+        brew bundle install --no-upgrade --file=/tmp/Brewfile.personal.nomas || echo "Warning: Some personal packages failed to install"
+        rm -f /tmp/Brewfile.personal.nomas
+    else
+        brew bundle install --no-upgrade --file="${SRCDIR}/Brewfile.personal" || echo "Warning: Some personal packages failed to install"
+    fi
+    echo "Personal package installation complete"
+fi
+{{ end -}}
+
+# Cleanup old packages
+echo "Cleaning up old Homebrew packages..."
+brew cleanup || echo "Warning: brew cleanup had issues"
+echo "Cleanup complete"
+
+{{ else -}}
+#!/bin/bash
+echo "Skipping Homebrew installation (not on macOS)"
+{{ end -}}
