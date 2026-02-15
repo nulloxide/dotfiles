@@ -1,0 +1,29 @@
+{{- if eq .chezmoi.os "windows" -}}
+# Install Scoop if not already installed (EXPERIMENTAL)
+
+Write-Host "Checking for Scoop..."
+
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host "Scoop not found. Installing..."
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+    Write-Host "Scoop installed successfully"
+} else {
+    Write-Host "Scoop already installed"
+}
+
+# Add useful buckets
+Write-Host "Adding Scoop buckets..."
+scoop bucket add extras 2>$null
+scoop bucket add nerd-fonts 2>$null
+
+# Update Scoop
+Write-Host "Updating Scoop..."
+scoop update
+
+# Ensure SSH directory exists
+$sshDir = "$env:USERPROFILE\.ssh"
+if (-not (Test-Path $sshDir)) {
+    New-Item -ItemType Directory -Path $sshDir -Force | Out-Null
+}
+{{ end -}}

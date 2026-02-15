@@ -13,20 +13,30 @@ Dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 - **Editors**: VS Code, Zed, PyCharm
 - **SSH**: Ed25519 keys with connection multiplexing
 - **Encryption**: SSH keys encrypted with [age](https://github.com/FiloSottile/age)
-- **Cross-platform**: Templates for macOS (Intel/ARM) and Linux
+- **Cross-platform**: macOS (Intel/ARM), Linux, and Windows (experimental)
 
 ## 🚀 Quick Start
 
-One command for everyone:
+### macOS / Linux
 
 ```bash
 curl -fsLS https://raw.githubusercontent.com/nulloxide/dotfiles/main/install.sh | sh
 ```
 
-- **Owner**: enter age passphrase when prompted to unlock SSH keys and secrets
-- **Public user**: press Ctrl+C at the passphrase prompt to skip secrets
+### Windows (Experimental)
 
-Installs Homebrew, all packages, shell configs, macOS settings, and oh-my-zsh plugins.
+```powershell
+iex (iwr 'https://raw.githubusercontent.com/nulloxide/dotfiles/main/install.ps1').Content
+```
+
+- **Owner**: enter age passphrase when prompted to unlock SSH keys and secrets
+- **Public user**: press Enter or Ctrl+C at the passphrase prompt to skip secrets
+
+| Platform | Package Manager | What's Installed |
+|----------|-----------------|------------------|
+| macOS | Homebrew | Full Brewfile + casks + App Store apps |
+| Linux | Homebrew | Brewfile (CLI tools only) |
+| Windows | Scoop | Scoopfile (CLI tools, experimental) |
 
 ### Existing Installation
 
@@ -36,7 +46,7 @@ chezmoi update
 
 ## 📦 What's Installed
 
-See [Brewfile](./Brewfile) for the complete list of packages and applications.
+See [Brewfile](./Brewfile) (macOS/Linux) or [Scoopfile](./Scoopfile) (Windows) for the complete list.
 
 **Highlights:**
 - Development: git, gh, git-absorb, fnm, direnv, just
@@ -100,6 +110,7 @@ chezmoi status
 
 ## 🛠️ Maintenance
 
+### macOS / Linux
 ```bash
 # Update Brewfile after installing new packages
 cd ~/.local/share/chezmoi
@@ -108,6 +119,17 @@ brew bundle dump --describe --force
 # Update packages
 brew update && brew upgrade
 ```
+
+### Windows
+```powershell
+# Update all Scoop packages
+scoop update *
+
+# Cleanup old versions
+scoop cleanup *
+```
+
+> **Note**: Windows support is experimental. Some features may not work as expected.
 
 ## License
 

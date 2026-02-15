@@ -1,0 +1,56 @@
+{{- if eq .chezmoi.os "windows" -}}
+# Install packages via Scoop (EXPERIMENTAL)
+# Scoopfile hash: {{ include "Scoopfile" | sha256sum }}
+
+Write-Host "Installing Scoop packages..."
+
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host "Warning: Scoop is not installed. Skipping package installation."
+    exit 0
+}
+
+$packages = @(
+    "age",
+    "git",
+    "starship",
+    "bat",
+    "eza",
+    "fd",
+    "ripgrep",
+    "fzf",
+    "zoxide",
+    "sd",
+    "jq",
+    "gh",
+    "lazygit",
+    "delta",
+    "fnm",
+    "uv",
+    "python",
+    "btop",
+    "dust",
+    "duf",
+    "hyperfine",
+    "glow",
+    "ouch"
+)
+
+foreach ($pkg in $packages) {
+    if (-not (scoop list $pkg 2>$null | Select-String $pkg)) {
+        Write-Host "Installing $pkg..."
+        scoop install $pkg 2>$null
+    }
+}
+
+# Install fonts (optional, requires admin for some)
+Write-Host "Installing fonts..."
+scoop install JetBrainsMono-NF 2>$null
+scoop install Meslo-NF 2>$null
+
+Write-Host "Package installation complete"
+
+# Cleanup
+Write-Host "Cleaning up old Scoop packages..."
+scoop cleanup *
+Write-Host "Cleanup complete"
+{{ end -}}

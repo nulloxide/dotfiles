@@ -1,11 +1,27 @@
 key.txt.age
 install.sh
+install.ps1
 .oh-my-zsh/cache
 Brewfile
 Brewfile.personal
+Scoopfile
 README.md
 LICENSE
 docs/**
+
+{{ if ne .chezmoi.os "darwin" }}
+Library/**
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
+.zshrc
+.zshenv
+.zprofile
+.oh-my-zsh/**
+.vimrc
+.inputrc
+.hushlogin
+{{ end }}
 {{ if not .isOwner }}
 .ssh/devdroid_ed25519
 .ssh/devdroid_ed25519.age

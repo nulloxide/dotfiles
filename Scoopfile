@@ -1,0 +1,45 @@
+# Scoop packages for Windows (EXPERIMENTAL)
+# Install: scoop install <package>
+# Buckets needed: main, extras, nerd-fonts
+
+# Core tools
+age
+chezmoi
+git
+
+# Shell & prompt
+starship
+pwsh
+
+# Modern CLI replacements
+bat
+eza
+fd
+ripgrep
+fzf
+zoxide
+sd
+jq
+
+# Git tools
+gh
+lazygit
+git-delta
+
+# Development
+fnm
+uv
+python
+
+# Utilities
+btop
+dust
+duf
+hyperfine
+glow
+ouch
+
+# Fonts (from nerd-fonts bucket)
+# scoop bucket add nerd-fonts
+# JetBrainsMono-NF
+# Meslo-NF
