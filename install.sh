@@ -53,7 +53,8 @@ if [ ! -f "${KEY_PATH}" ] && [ -f "${ENCRYPTED_KEY}" ] && command -v age > /dev/
     echo "Press Ctrl+C to skip (public user mode)."
     echo ""
     mkdir -p "$(dirname "${KEY_PATH}")"
-    age --decrypt --output "${KEY_PATH}" "${ENCRYPTED_KEY}" 2>/dev/null || true
+    # Run in a subshell so Ctrl+C only kills age, not the entire script
+    (age --decrypt --output "${KEY_PATH}" "${ENCRYPTED_KEY}" 2>/dev/null) || true
     if [ -f "${KEY_PATH}" ] && [ -s "${KEY_PATH}" ]; then
         chmod 600 "${KEY_PATH}"
         echo "Age key decrypted"
