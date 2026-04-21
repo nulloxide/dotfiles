@@ -32,8 +32,6 @@ cask "logi-options+"
 cask "monitorcontrol"
 # Open-source software for live streaming and screen recording
 cask "obs"
-# Get up and running with large language models locally
-cask "ollama-app"
 # Control your Sonos system
 cask "sonos"
 # Music streaming service
